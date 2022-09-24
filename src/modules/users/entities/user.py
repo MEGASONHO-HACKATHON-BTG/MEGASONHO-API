@@ -1,6 +1,8 @@
 import sqlalchemy as sa
 from sqlalchemy.orm import relationship
 
+from src.modules.guests.entities.guest import Guest
+
 from src.config.database import Base
 
 class User(Base):
@@ -15,7 +17,9 @@ class User(Base):
     phone = sa.Column(sa.String, unique=True, nullable=True)
     verified_phone = sa.Column(sa.String, nullable=True)
     is_active = sa.Column(sa.Boolean, default=False)
+    # relations
+    number_lucky = relationship("NumberLucky", back_populates='user')
+    guests = relationship("Guest", back_populates='user')
+    # timestamp
     created_at = sa.Column(sa.DateTime, nullable=False, server_default=sa.func.now())
     updated_at = sa.Column(sa.DateTime, nullable=False, server_default=sa.func.now(), server_onupdate=sa.func.now())
-    # relations
-    number_lucky = relationship("NumberLucky", back_populates='user', uselist=False)

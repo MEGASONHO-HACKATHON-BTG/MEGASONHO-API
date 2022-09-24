@@ -23,7 +23,7 @@ def create_two_factor(
     return service.execute(model)
 
 # POST /two-factor/activate
-@router.post('/activate', response_model=TwoFactorModel)
+@router.post('/activate/', response_model=TwoFactorModel)
 def activate_two_factor(
     model: ActivateTwoFactorModel,
     db: Session = Depends(get_database)
