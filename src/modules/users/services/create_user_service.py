@@ -1,11 +1,14 @@
 from uuid import uuid4
 from sqlalchemy.orm import Session
+from src.config.env import env
 
 from src.modules.users.entities.user import User
 
 from src.modules.users.models import CreateUserModel, UserModelPayload
 
 from src.shared.exceptions.bad_exception import BadRequestException
+
+from src.modules.number_lucky.services.create_number_lucky_service import CreateNumberLuckyService
 
 from src.shared.services.bot_conversa import BotConversaApi
 
@@ -16,7 +19,21 @@ class CreateUserService:
         self._db = db
         self._whatsapp_api = BotConversaApi()
     
-    def execute(self, model: CreateUserModel) -> UserModelPayload:
+    def execute(self, model: CreateUserModel, code: str) -> UserModelPayload:
+        user = self._db.query(User).filter(User.code == code).first()
+        
+        if user: 
+            if code and user.max_use > 0:
+                service = CreateNumberLuckyService(self._db)
+
+                service.execute(user.uuid)
+                user.max_use -= 1
+                
+                self._db.add(user)
+                self._db.commit()
+                self._db.refresh(user)
+            elif user.max_use == 0:
+                raise BadRequestException(message='O usuário já resgatou o número máximo de números da sorte com convidados')
 
         if len(model.document) > 11:
             raise BadRequestException(message='Tamanho máximo de documento 11 digitos')

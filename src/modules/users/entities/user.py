@@ -18,6 +18,8 @@ class User(Base):
     phone = sa.Column(sa.String, unique=True, nullable=True)
     verified_phone = sa.Column(sa.String, nullable=True)
     is_active = sa.Column(sa.Boolean, default=False)
+    code = sa.Column(sa.String, nullable=True, unique=True)
+    max_use = sa.Column(sa.Integer, nullable=True)
     # relations
     number_lucky = relationship("NumberLucky", back_populates='user')
     guests = relationship("Guest", back_populates='user')
