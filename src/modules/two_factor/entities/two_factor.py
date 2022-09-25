@@ -2,6 +2,7 @@ import sqlalchemy as sa
 
 from src.config.database import Base
 
+
 class TwoFactor(Base):
 
     __tablename__ = 'two_factor'
@@ -14,5 +15,6 @@ class TwoFactor(Base):
     expires_hours = sa.Column(sa.Integer, nullable=True, default=2)
     expires_at = sa.Column(sa.DateTime, nullable=False)
     validated_at = sa.Column(sa.DateTime, nullable=True)
+    # timestamp
     created_at = sa.Column(sa.DateTime, nullable=False, server_default=sa.func.now())
     updated_at = sa.Column(sa.DateTime, nullable=False, server_default=sa.func.now(), server_onupdate=sa.func.now())

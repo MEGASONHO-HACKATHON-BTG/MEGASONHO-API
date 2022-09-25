@@ -17,5 +17,6 @@ class NumberLuckyModelPayload(BaseModel):
     number: str
     is_active: bool
 
+
     class Config:
         orm_mode = True
