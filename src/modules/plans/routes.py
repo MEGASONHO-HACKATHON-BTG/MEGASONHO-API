@@ -15,6 +15,7 @@ router = APIRouter(
     tags=['Plans']
 )
 
+# POST /plans/create/
 @router.post('/create/', response_model=PlanPayloadModel)
 def create_plan(
     model: CreatePlanModel,
@@ -23,6 +24,7 @@ def create_plan(
     service = CreatePlanService(db)
     return service.execute(model)
 
+# GET /plans/list/
 @router.get('/list/', response_model=List[PlanPayloadModel])
 def list_plan(
     db: Session = Depends(get_database)
@@ -30,6 +32,7 @@ def list_plan(
     service = ListPlanService(db)
     return service.execute()
 
+# POST /plans/purchase/
 @router.post('/purchase/', response_model=bool)
 def purchase_plan(
     document: str = Query(),

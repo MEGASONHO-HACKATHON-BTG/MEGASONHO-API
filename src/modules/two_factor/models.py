@@ -3,6 +3,7 @@ from datetime import datetime
 from typing import Optional
 from enum import Enum
 
+
 class TwoFactorType(Enum):
     WHATSAPP = 'WHATSAPP'
 

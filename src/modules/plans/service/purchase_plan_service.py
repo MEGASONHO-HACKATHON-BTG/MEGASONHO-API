@@ -30,7 +30,6 @@ class PurchasePlanService:
             service = CreateNumberLuckyService(self._db)
 
             service.execute(user.uuid)
-            print(i)
             i += 1
 
         return True

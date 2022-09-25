@@ -12,6 +12,7 @@ from src.modules.guests.models import (
 from src.shared.exceptions.not_found_exception import NotFoundException
 from src.shared.exceptions.bad_exception import BadRequestException
 
+
 class CreateGuestService:
 
     def __init__(self, db: Session):

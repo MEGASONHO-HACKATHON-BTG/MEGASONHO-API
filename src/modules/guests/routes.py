@@ -39,7 +39,7 @@ def list_users(
 
 # GET /guests/get-by-user
 @router.get('/get-by-user/', response_model=List[GuestModelPayload])
-def list_users(
+def get_by_user(
     document: str = Query(),
     db: Session = Depends(get_database)
 ):

@@ -3,12 +3,10 @@ from sqlalchemy.orm import Session
 from src.modules.guests.entities.guest import Guest
 from src.modules.users.entities.user import User
 
-from src.modules.guests.models import ( 
-    GuestModelPayload
-)
+from src.modules.guests.models import GuestModelPayload
 
 from src.shared.exceptions.not_found_exception import NotFoundException
-from src.shared.exceptions.bad_exception import BadRequestException
+
 
 class ListGuestsByUserService:
 

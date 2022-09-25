@@ -9,6 +9,7 @@ from src.shared.exceptions.bad_exception import BadRequestException
 
 from src.shared.services.bot_conversa import BotConversaApi
 
+
 class CreateUserService:
 
     def __init__(self, db: Session):

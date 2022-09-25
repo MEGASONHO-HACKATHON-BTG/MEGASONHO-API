@@ -11,6 +11,7 @@ from src.shared.exceptions.bad_exception import BadRequestException
 from src.shared.exceptions.not_found_exception import NotFoundException
 from src.shared.exceptions.forbidden_exception import ForbiddenException
 
+
 class CreateNumberLuckyService:
 
     def __init__(self, db: Session):
