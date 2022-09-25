@@ -20,9 +20,9 @@ router = APIRouter(
 )
 
 # POST /guests/create
-@router.post('/create/', response_model=GuestModelPayload)
+@router.post('/create/', response_model=List[GuestModelPayload])
 def create_guest(
-    model: CreateGuestModel,
+    model: List[CreateGuestModel],
     document: str = Query(),
     db: Session = Depends(get_database)
 ):
