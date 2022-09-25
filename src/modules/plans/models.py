@@ -10,8 +10,8 @@ class CreatePlanModel(BaseModel):
 
 class PlanPayloadModel(CreatePlanModel):
     uuid: str
-    create_at: Optional[date]
-    update_at: Optional[date]
+    created_at: Optional[date]
+    updated_at: Optional[date]
 
     class Config:
         orm_mode = True
