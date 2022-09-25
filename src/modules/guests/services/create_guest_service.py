@@ -14,11 +14,14 @@ from src.modules.guests.models import (
 from src.shared.exceptions.not_found_exception import NotFoundException
 from src.shared.exceptions.bad_exception import BadRequestException
 
+from src.shared.services.bot_conversa import BotConversaApi
+
 
 class CreateGuestService:
 
     def __init__(self, db: Session):
         self._db = db
+        self._whatsapp_api = BotConversaApi()
     
     def execute(self, model: List[CreateGuestModel], document: str) -> List[GuestModelPayload]:
         
@@ -45,6 +48,23 @@ class CreateGuestService:
             db_guest = Guest(**payload.dict())
             db_guest.uuid = str(uuid4())
             db_guest.user_uuid = user.uuid
+
+            subscriber = self._whatsapp_api.check_subscriber(model.phone)
+
+            if subscriber == 404:
+                name = model.name.split(' ')
+                first_name = name[0]
+                last_name = name[1]
+
+                self._whatsapp_api.subscriber(model.phone, first_name, last_name)
+
+                get_subscriber = self._whatsapp_api.find_subscriber(model.phone)
+
+                self._whatsapp_api.send_mensage(get_subscriber, code)
+            
+            get_subscriber = self._whatsapp_api.find_subscriber(model.phone)
+
+            self._whatsapp_api.send_mensage(get_subscriber, code)
 
             self._db.add(db_guest)
             self._db.commit()
