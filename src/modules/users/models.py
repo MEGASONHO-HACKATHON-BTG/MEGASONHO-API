@@ -1,6 +1,7 @@
 from pydantic import BaseModel
 from typing import Optional
 
+
 class UserModelPayload(BaseModel):
     uuid: str
     name: str
@@ -15,11 +16,13 @@ class UserModelPayload(BaseModel):
     class Config:
         orm_mode = True
 
+
 class CreateUserModel(BaseModel):
     name: str
     document: str
     phone: str
     email: str
+
 
 class UpdateUserModel(CreateUserModel):
     document: Optional[str]

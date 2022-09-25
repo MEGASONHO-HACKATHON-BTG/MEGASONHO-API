@@ -5,6 +5,7 @@ from src.modules.guests.entities.guest import Guest
 
 from src.config.database import Base
 
+
 class User(Base):
 
     __tablename__ = 'users'

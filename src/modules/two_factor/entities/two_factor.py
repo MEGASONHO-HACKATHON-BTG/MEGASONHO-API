@@ -2,6 +2,7 @@ import sqlalchemy as sa
 
 from src.config.database import Base
 
+
 class TwoFactor(Base):
 
     __tablename__ = 'two_factor'

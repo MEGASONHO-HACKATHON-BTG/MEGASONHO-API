@@ -13,5 +13,6 @@ class PlanPayloadModel(CreatePlanModel):
     created_at: Optional[date]
     updated_at: Optional[date]
 
+
     class Config:
         orm_mode = True

@@ -7,6 +7,7 @@ from src.modules.guests.models import GuestModelPayload
 
 from src.shared.exceptions.not_found_exception import NotFoundException
 
+
 class ListGuestsByUserService:
 
     def __init__(self, db: Session):

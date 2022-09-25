@@ -7,6 +7,7 @@ from src.modules.number_lucky.models import NumberLuckyModelPayload
 
 from src.shared.exceptions.not_found_exception import NotFoundException
 
+
 class ListNumberLuckysByUserService:
 
     def __init__(self, db: Session):
