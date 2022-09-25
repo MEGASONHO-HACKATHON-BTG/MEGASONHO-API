@@ -15,7 +15,6 @@ class ListNumberLuckysByUserService:
     
     def execute(self, document: str) -> NumberLuckyModelPayload:
       user = self._db.query(User).filter(User.document == document).first()
-      print(user)
       
       if not user:
             raise NotFoundException(message="Usuário não encontrado")
