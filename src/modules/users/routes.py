@@ -26,10 +26,11 @@ router = APIRouter(
 @router.post('/create/', response_model=UserModelPayload)
 def create_user(
     model: CreateUserModel,
+    code: str = Query(None),
     db: Session = Depends(get_database)
 ):
     service = CreateUserService(db)
-    return service.execute(model)
+    return service.execute(model, code)
 
 # GET /users/check-document/{document}
 @router.get('/check-document/', response_model=bool)

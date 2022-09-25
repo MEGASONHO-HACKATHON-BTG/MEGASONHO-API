@@ -1,5 +1,6 @@
 from typing import List
 from uuid import uuid4
+from random import randrange
 from sqlalchemy.orm import Session
 
 from src.modules.guests.entities.guest import Guest
@@ -20,6 +21,10 @@ class CreateGuestService:
         self._db = db
     
     def execute(self, model: List[CreateGuestModel], document: str) -> List[GuestModelPayload]:
+        
+        if len(model) > 3:
+            raise BadRequestException(message="Usuário já contém o número máximo de convidados")
+
         user = self._db.query(User).filter(User.document == document).first()
         
         if not user:
@@ -30,9 +35,12 @@ class CreateGuestService:
         if len(guests) > 2:
             raise BadRequestException(message="Número máximo de convidados já cadastrado")
     
+        code = str(randrange(100_000, 999_999))
 
         guests = []
-
+        
+        i = 0
+        
         for payload in model:
             db_guest = Guest(**payload.dict())
             db_guest.uuid = str(uuid4())
@@ -43,6 +51,13 @@ class CreateGuestService:
             self._db.refresh(db_guest)
 
             guests.append(db_guest)
-
+            i += 1
+            
+        user.code = code
+        user.max_use = i
+        
+        self._db.add(user)
+        self._db.commit()
+        self._db.refresh(user)
 
         return [GuestModelPayload.from_orm(guest) for guest in guests] 
